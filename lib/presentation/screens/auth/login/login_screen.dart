@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recetas/config/theme/app_theme.dart';
+import 'package:recetas/presentation/screens/providers/login_provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   static const name = 'login-screen';
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
+
+    final errorEmail = ref.watch(loginStateProvider).email.error;
+    final errorPassword = ref.watch(loginStateProvider).password.error;
+    final isvalid = ref.watch(loginStateProvider.notifier).isValid();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -40,20 +46,29 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 50),
                   TextField(
                     style: const TextStyle(fontSize: 20),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      errorText: errorEmail,
+                      errorStyle: const TextStyle(fontSize: 15),
                       labelText: 'Correo',
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    onSubmitted: (value) {
-                      // FocusScope.of(context).requestFocus(focusPassword);
+                    onChanged: (value) {
+                      ref.read(loginStateProvider.notifier).changeEmail(value);
                     },
                   ),
                   const SizedBox(height: 40),
                   TextField(
+                    onChanged: (value) {
+                      ref
+                          .read(loginStateProvider.notifier)
+                          .changePassword(value);
+                    },
                     style: const TextStyle(
                       fontSize: 18,
                     ),
                     decoration: InputDecoration(
+                      errorText: errorPassword,
+                      errorStyle: const TextStyle(fontSize: 15),
                       labelText: 'Contraseña',
                       suffixIcon: IconButton(
                         onPressed: () {},
@@ -91,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                             AppTheme.firstColor.withOpacity(0.2),
                         disabledForegroundColor: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: isvalid ? () {} : null,
                       child: const Text(
                         'Ingresar',
                         style: TextStyle(
