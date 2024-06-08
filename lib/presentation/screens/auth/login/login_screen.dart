@@ -8,7 +8,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-   
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -50,7 +50,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   TextField(
-                   
                     style: const TextStyle(
                       fontSize: 18,
                     ),
@@ -84,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                   const Spacer(flex: 2),
                   SizedBox(
                     width: double.infinity,
-                    height: 60,
+                    height: 50,
                     child: FilledButton(
                       style: FilledButton.styleFrom(
                         backgroundColor: AppTheme.firstColor,
@@ -107,11 +106,11 @@ class LoginScreen extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {},
                       child: const Text(
-                        'Registrate',
+                        '¿No tienes cuenta?',
                         style: TextStyle(
-                          color: AppTheme.firstColor,
+                          color: AppTheme.unselectedColor,
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: null,
                         ),
                       ),
                     ),
