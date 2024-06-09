@@ -13,10 +13,9 @@ class RegisterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final height = MediaQuery.of(context).size.height;
     final registerProvider = ref.watch(registerStateProvider);
     final textUpdate = ref.read(registerStateProvider.notifier);
-
-    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Margin(
@@ -25,11 +24,12 @@ class RegisterScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             IconButton(
-                onPressed: () => context.pop(),
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  size: 30,
-                )),
+              onPressed: () => context.pop(),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                size: 30,
+              ),
+            ),
             const SizedBox(height: 45),
             const CustomTitle('Crear cuenta'),
             const SizedBox(height: 30),

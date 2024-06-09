@@ -5,7 +5,7 @@ import 'package:recetas/presentation/screens/utils/validation_item.dart';
 import '../auth/login/login_state.dart';
 
 final loginStateProvider =
-    StateNotifierProvider<LoginStateNotifierProvider, LoginState>((ref) {
+    StateNotifierProvider.autoDispose<LoginStateNotifierProvider, LoginState>((ref) {
   return LoginStateNotifierProvider();
 });
 

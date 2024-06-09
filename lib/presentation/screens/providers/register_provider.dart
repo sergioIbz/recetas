@@ -4,7 +4,7 @@ import 'package:recetas/presentation/screens/auth/register/register_state.dart';
 import 'package:recetas/presentation/screens/utils/validation_item.dart';
 
 final registerStateProvider =
-    StateNotifierProvider<RegisterNotifierProvider, RegisterState>((ref) {
+    StateNotifierProvider.autoDispose<RegisterNotifierProvider, RegisterState>((ref) {
   return RegisterNotifierProvider();
 });
 

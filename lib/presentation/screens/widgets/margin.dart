@@ -12,15 +12,21 @@ class Margin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: SizedBox(
-        height: height,
-        child: SafeArea(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height,
+        ),
+        child: SizedBox(
+          height: height,
+          child: SafeArea(
             child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: child,
+            ),
           ),
-          child: child,
-        )),
+        ),
       ),
     );
   }
