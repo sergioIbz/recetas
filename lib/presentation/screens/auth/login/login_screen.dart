@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetas/config/theme/app_theme.dart';
+import 'package:recetas/presentation/screens/auth/register/register_screen.dart';
 import 'package:recetas/presentation/screens/providers/login_provider.dart';
+import 'package:recetas/presentation/screens/widgets/custom_text_field.dart';
 
 class LoginScreen extends ConsumerWidget {
   static const name = 'login-screen';
@@ -11,9 +14,9 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
 
-    final errorEmail = ref.watch(loginStateProvider).email.error;
-    final errorPassword = ref.watch(loginStateProvider).password.error;
     final isvalid = ref.watch(loginStateProvider.notifier).isValid();
+    final loginProvider = ref.watch(loginStateProvider);
+    final textUpdate = ref.read(loginStateProvider.notifier);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -40,46 +43,21 @@ class LoginScreen extends ConsumerWidget {
                     'Por favor ingrese su correo electrónico y contraseña para iniciar sesión',
                     style: TextStyle(
                       fontSize: 18,
-                      //fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 50),
-                  TextField(
-                    style: const TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                      errorText: errorEmail,
-                      errorStyle: const TextStyle(fontSize: 15),
-                      labelText: 'Correo',
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) {
-                      ref.read(loginStateProvider.notifier).changeEmail(value);
-                    },
+                  CustomTextField(
+                    labelText: 'Correo',
+                    errorText: loginProvider.email.error,
+                    onChanged: textUpdate.changeEmail,
                   ),
                   const SizedBox(height: 40),
-                  TextField(
-                    onChanged: (value) {
-                      ref
-                          .read(loginStateProvider.notifier)
-                          .changePassword(value);
-                    },
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                    decoration: InputDecoration(
-                      errorText: errorPassword,
-                      errorStyle: const TextStyle(fontSize: 15),
-                      labelText: 'Contraseña',
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.visibility_off_outlined,
-                          color: AppTheme.unselectedColor,
-                        ),
-                      ),
-                    ),
-                    obscureText: true,
-                    obscuringCharacter: '●',
+                 
+                  CustomTextField(
+                    isPassword: true,
+                    labelText: 'Contraseña',
+                    errorText: loginProvider.password.error,
+                    onChanged: textUpdate.changePassword,
                   ),
                   const Spacer(flex: 1),
                   Align(
@@ -119,7 +97,9 @@ class LoginScreen extends ConsumerWidget {
                   const SizedBox(height: 20),
                   Align(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed(RegisterScreen.name);
+                      },
                       child: const Text(
                         '¿No tienes cuenta?',
                         style: TextStyle(
