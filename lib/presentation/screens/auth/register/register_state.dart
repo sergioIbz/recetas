@@ -4,26 +4,26 @@ class RegisterState {
   ValidationItem userName;
   ValidationItem email;
   ValidationItem password;
-  ValidationItem comfirmPassword;
+  ValidationItem confirmPassword;
 
   RegisterState({
     this.userName = const ValidationItem(),
     this.email = const ValidationItem(),
     this.password = const ValidationItem(),
-    this.comfirmPassword = const ValidationItem(),
+    this.confirmPassword = const ValidationItem(),
   });
 
-  RegisterState copiwith(
+  RegisterState copyWith({
     ValidationItem? userName,
     ValidationItem? email,
     ValidationItem? password,
-    ValidationItem? comfirmPassword,
-  ) {
+    ValidationItem? confirmPassword,
+  }) {
     return RegisterState(
       userName: userName ?? this.userName,
       email: email ?? this.email,
       password: password ?? this.password,
-      comfirmPassword: comfirmPassword ?? this.comfirmPassword,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
     );
   }
 
@@ -31,11 +31,12 @@ class RegisterState {
     if (userName.value.isEmpty ||
         email.value.isEmpty ||
         password.value.isEmpty ||
-        comfirmPassword.value.isEmpty ||
+        confirmPassword.value.isEmpty ||
         userName.error.isNotEmpty ||
         email.error.isNotEmpty ||
         password.error.isNotEmpty ||
-        comfirmPassword.error.isNotEmpty) {
+        confirmPassword.error.isNotEmpty ||
+        (password.value != confirmPassword.value)) {
       return false;
     }
     return true;

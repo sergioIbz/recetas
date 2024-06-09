@@ -24,54 +24,50 @@ class LoginScreen extends ConsumerWidget {
     final textUpdate = ref.read(loginStateProvider.notifier);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: height,
-          child: Margin(
-            height: height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 45),
-                const CustomTitle('Bienvenido'),
-                const SizedBox(height: 25),
-                const CustomSubTitle(
-                  'Por favor ingrese su correo electrónico y contraseña para iniciar sesión',
-                ),
-                const SizedBox(height: 50),
-                CustomTextField(
-                  labelText: 'Correo',
-                  errorText: loginProvider.email.error,
-                  onChanged: textUpdate.changeEmail,
-                ),
-                const SizedBox(height: 40),
-                CustomTextField(
-                  isPassword: true,
-                  labelText: 'Contraseña',
-                  errorText: loginProvider.password.error,
-                  onChanged: textUpdate.changePassword,
-                ),
-                const Spacer(flex: 1),
-                CustomTextButton(
-                  text: '¿Olvido su contraseña?',
-                  color: AppTheme.firstColor,
-                  onPressed: () {},
-                ),
-                const Spacer(flex: 2),
-                CustomButton(
-                  text: 'Ingresar',
-                  isValid: isValid,
-                  onPressed: () {},
-                ),
-                const SizedBox(height: 20),
-                CustomTextButton(
-                  text: '¿No tienes cuenta?',
-                  onPressed: () => context.pushNamed(RegisterScreen.name),
-                ),
-                const SizedBox(height: 20),
-              ],
+     
+      body: Margin(
+        height: height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 45),
+            const CustomTitle('Bienvenido'),
+            const SizedBox(height: 25),
+            const CustomSubTitle(
+              'Por favor ingrese su correo electrónico y contraseña para iniciar sesión',
             ),
-          ),
+            const SizedBox(height: 50),
+            CustomTextField(
+              labelText: 'Correo',
+              errorText: loginProvider.email.error,
+              onChanged: textUpdate.changeEmail,
+            ),
+            const SizedBox(height: 40),
+            CustomTextField(
+              isPassword: true,
+              labelText: 'Contraseña',
+              errorText: loginProvider.password.error,
+              onChanged: textUpdate.changePassword,
+            ),
+            const Spacer(flex: 1),
+            CustomTextButton(
+              text: '¿Olvido su contraseña?',
+              color: AppTheme.firstColor,
+              onPressed: () {},
+            ),
+            const Spacer(flex: 2),
+            CustomButton(
+              text: 'Ingresar',
+              isValid: isValid,
+              onPressed: () {},
+            ),
+            const SizedBox(height: 20),
+            CustomTextButton(
+              text: '¿No tienes cuenta?',
+              onPressed: () => context.pushNamed(RegisterScreen.name),
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );
