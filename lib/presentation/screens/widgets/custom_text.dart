@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recetas/presentation/screens/providers/obscure_text_provider.dart';
 
-class CustomTextField extends ConsumerWidget {
+class CustomTextField extends StatefulWidget {
   final String? errorText;
   final String? labelText;
   final bool isPassword;
@@ -16,28 +14,31 @@ class CustomTextField extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isObscureText = ref.watch(obscureTextProvider);
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool isObscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
     return TextField(
       style: const TextStyle(fontSize: 22),
-      obscureText: isPassword && isObscureText,
+      obscureText: widget.isPassword && isObscureText,
       decoration: InputDecoration(
-        errorText: errorText?.isNotEmpty ?? false ? errorText : null,
+        errorText:
+            widget.errorText?.isNotEmpty ?? false ? widget.errorText : null,
         errorStyle: const TextStyle(fontSize: 15),
-        labelText: labelText,
+        labelText: widget.labelText,
         labelStyle: const TextStyle(
           fontSize: 20,
           color: Colors.white,
         ),
-        suffixIcon: isPassword
+        suffixIcon: widget.isPassword
             ? IconButton(
-                onPressed: () => ref
-                    .read(
-                      obscureTextProvider.notifier,
-                    )
-                    .update(
-                      (state) => !state,
-                    ),
+                onPressed: () => setState(() {
+                  isObscureText = !isObscureText;
+                }),
                 icon: Icon(
                   isObscureText
                       ? Icons.visibility_off_outlined
@@ -48,7 +49,7 @@ class CustomTextField extends ConsumerWidget {
             : null,
       ),
       keyboardType: TextInputType.emailAddress,
-      onChanged: onChanged,
+      onChanged: widget.onChanged,
     );
   }
 }
