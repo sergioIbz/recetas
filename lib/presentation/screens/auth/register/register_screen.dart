@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:recetas/presentation/screens/home/home_screen.dart';
-import '../../../../config/theme/app_theme.dart';
+
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_title.dart';
@@ -16,10 +16,10 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  RegisterScreenState createState() => RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String username = '';
   String email = '';
@@ -30,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _register() async {
     if (password != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Las contraseñas no coinciden.')),
+        const SnackBar(content: Text('Las contraseñas no coinciden.')),
       );
       return;
     }
@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'email': email,
       });
 
-      // Navegar a la pantalla principal después de un registro exitoso
+     
       context.go('/${HomeScreen.name}');
     } on FirebaseAuthException catch (e) {
       setState(() {

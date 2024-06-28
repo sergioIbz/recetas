@@ -12,9 +12,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-   
-      const MyApp(),
-  
+    const MyApp(),
   );
 }
 
@@ -24,7 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Material App',
+      debugShowCheckedModeBanner: false,
+      title: 'Recetas app',
       routerConfig: appRouter,
       theme: AppTheme().getTheme(context),
     );

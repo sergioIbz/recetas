@@ -1,8 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:recetas/presentation/screens/auth/login/login_screen.dart';
 import 'package:recetas/presentation/screens/auth/register/register_screen.dart';
+import 'package:recetas/presentation/screens/forgot_password/forgot_password_screen.dart';
 import 'package:recetas/presentation/screens/home/home_screen.dart';
 import 'package:recetas/presentation/screens/publication/publication_screen.dart';
+import 'package:recetas/presentation/screens/user/user_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/${LoginScreen.name}',
@@ -26,6 +28,16 @@ final appRouter = GoRouter(
       path: '/${PublicationScreen.name}',
       name: PublicationScreen.name,
       builder: (context, state) => const PublicationScreen(),
+    ),
+    GoRoute(
+      path: '/${UserScreen.name}',
+      name: UserScreen.name,
+      builder: (context, state) => const UserScreen(),
+    ),
+    GoRoute(
+      path: '/${ForgotPasswordScreen.name}',
+      name: ForgotPasswordScreen.name,
+      builder: (context, state) => const ForgotPasswordScreen(),
     ),
   ],
 );

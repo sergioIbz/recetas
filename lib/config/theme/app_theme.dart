@@ -6,6 +6,7 @@ class AppTheme {
   static const secondColor = Color(0xff17191D);
   static const unselectedColor = Color(0xff939191);
   ThemeData getTheme(BuildContext context) => ThemeData(
+        brightness: Brightness.dark,
         colorSchemeSeed: firstColor,
         fontFamily: GoogleFonts.jost().fontFamily,
         scaffoldBackgroundColor: secondColor,
@@ -22,7 +23,6 @@ class AppTheme {
             color: Colors.white,
           ),
         ),
-       
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           showUnselectedLabels: true,
           unselectedItemColor: unselectedColor,
@@ -52,7 +52,6 @@ class AppTheme {
             ),
           ),
           enabledBorder: UnderlineInputBorder(
-            
             borderSide: BorderSide(
               color: unselectedColor,
               width: 1.0,

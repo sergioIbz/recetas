@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recetas/presentation/screens/forgot_password/forgot_password_screen.dart';
 import 'package:recetas/presentation/screens/home/home_screen.dart';
 import '../../../../config/theme/app_theme.dart';
 import '../../widgets/custom_button.dart';
@@ -9,7 +10,6 @@ import '../../widgets/custom_text_button.dart';
 import '../../widgets/custom_title.dart';
 import '../../widgets/margin.dart';
 import '../register/register_screen.dart';
-
 
 class LoginScreen extends StatefulWidget {
   static const name = 'login-screen';
@@ -30,7 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading = true;
     });
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -113,7 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomTextButton(
                 text: '¿Olvidó su contraseña?',
                 color: AppTheme.firstColor,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(ForgotPasswordScreen.name);
+                },
               ),
               const Spacer(flex: 2),
               CustomButton(
@@ -128,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               CustomTextButton(
                 text: '¿No tienes cuenta?',
-                onPressed: () => context.pushReplacementNamed(RegisterScreen.name),
+                onPressed: () =>
+                    context.pushReplacementNamed(RegisterScreen.name),
               ),
               const SizedBox(height: 20),
             ],
