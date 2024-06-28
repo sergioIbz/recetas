@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String? errorText;
+  final String? initialValue;
   final String? labelText;
   final bool isPassword;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
+
   const CustomTextField({
     this.isPassword = false,
     this.labelText,
-    this.errorText,
+    this.initialValue,
     this.onChanged,
+    this.validator,
     super.key,
   });
 
@@ -19,16 +22,27 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool isObscureText = true;
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: _controller,
       style: const TextStyle(fontSize: 22),
       obscureText: widget.isPassword && isObscureText,
       decoration: InputDecoration(
-        errorText:
-            widget.errorText?.isNotEmpty ?? false ? widget.errorText : null,
-        errorStyle: const TextStyle(fontSize: 15),
         labelText: widget.labelText,
         labelStyle: const TextStyle(
           fontSize: 20,
@@ -50,6 +64,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
       keyboardType: TextInputType.emailAddress,
       onChanged: widget.onChanged,
+      validator: widget.validator,
     );
   }
 }
