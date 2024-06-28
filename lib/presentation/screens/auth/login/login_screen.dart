@@ -24,7 +24,6 @@ class LoginScreen extends ConsumerWidget {
     final textUpdate = ref.read(loginStateProvider.notifier);
 
     return Scaffold(
-     
       body: Margin(
         height: height,
         child: Column(
@@ -59,7 +58,9 @@ class LoginScreen extends ConsumerWidget {
             CustomButton(
               text: 'Ingresar',
               isValid: isValid,
-              onPressed: () {},
+              onPressed: () async {
+                ref.read(loginStateProvider.notifier).login();
+              },
             ),
             const SizedBox(height: 20),
             CustomTextButton(

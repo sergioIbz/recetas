@@ -1,20 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recetas/injection.dart';
 
 import 'package:recetas/presentation/screens/utils/validation_item.dart';
 
 import '../auth/login/login_state.dart';
 
 final loginStateProvider =
-    StateNotifierProvider.autoDispose<LoginStateNotifierProvider, LoginState>((ref) {
-  return LoginStateNotifierProvider();
+    StateNotifierProvider.autoDispose<LoginStateNotifierProvider, LoginState>(
+        (ref) {
+  return LoginStateNotifierProvider(locator<FirebaseAuth>());
 });
 
 class LoginStateNotifierProvider extends StateNotifier<LoginState> {
   //
-  LoginStateNotifierProvider()
+  FirebaseAuth _firebaseAuth;
+  LoginStateNotifierProvider(this._firebaseAuth)
       : super(
           LoginState(),
         );
+
+  void login() async {
+  
+    if (state.isValid()) {
+      final data = await _firebaseAuth.signInWithEmailAndPassword(
+          email: state.email.value, password: state.password.value);
+      print(data);
+    } else {
+     
+    }
+  }
 
   void changeEmail(String value) {
     final bool emailFormatValid = RegExp(
