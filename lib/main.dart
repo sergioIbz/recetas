@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Recetas app ',
+      title: 'Recetas app SENA',
+      
       routerConfig: appRouter,
       theme: AppTheme().getTheme(context),
     );
